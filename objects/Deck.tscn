@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/CardNumberLabel.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Deck.gd" type="Script" id=2]
+[ext_resource path="res://assets/X9tYQOD_3x.png" type="Texture" id=3]
+[ext_resource path="res://assets/UniformRegular.otf" type="DynamicFontData" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 18, 22 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 18, 22 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+use_mipmaps = true
+font_data = ExtResource( 4 )
+
+[node name="Deck" type="StaticBody2D" groups=[
+"deck",
+]]
+input_pickable = true
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 912, 864, 48, 48 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+
+[node name="CardNumberLabel" type="Label" parent="."]
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -18.2998
+margin_top = -19.0022
+margin_right = 17.7002
+margin_bottom = 24.9978
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.972549, 0.913725, 0.913725, 1 )
+text = "10"
+align = 1
+valign = 1
+uppercase = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+[connection signal="card_change" from="." to="CardNumberLabel" method="_on_Deck_card_change"]
