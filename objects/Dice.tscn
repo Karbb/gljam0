@@ -44,6 +44,8 @@ tracks/0/keys = {
 "pickable",
 ]]
 input_pickable = true
+collision_layer = 524288
+collision_mask = 0
 script = ExtResource( 1 )
 value = 2
 
@@ -56,6 +58,8 @@ region_enabled = true
 region_rect = Rect2( 2064, 672, 48, 48 )
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )

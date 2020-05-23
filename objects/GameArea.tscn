@@ -10,12 +10,25 @@
 script = ExtResource( 3 )
 
 [node name="Deck" parent="." instance=ExtResource( 2 )]
-position = Vector2( 116, 52 )
+position = Vector2( 44, 40 )
+collision_layer = 524288
 
 [node name="Card" parent="." instance=ExtResource( 1 )]
-position = Vector2( 220, 138 )
+position = Vector2( 280, 108 )
+suit = "S"
+
+[node name="Card2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 344, 108 )
 
 [node name="Dice" parent="." instance=ExtResource( 4 )]
-position = Vector2( 48, 72 )
+position = Vector2( 104, 296 )
+
+[node name="Dice2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 252, 296 )
+value = 5
+
+[node name="Dice3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 180, 296 )
+value = 3
 
 [node name="Enemy" parent="." instance=ExtResource( 5 )]

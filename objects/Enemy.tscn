@@ -15,6 +15,8 @@ extents = Vector2( 15.9417, 24.5893 )
 "enemy",
 ]]
 position = Vector2( 120, 108 )
+collision_layer = 0
+collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -33,10 +35,10 @@ __meta__ = {
 }
 
 [node name="HP" type="Label" parent="Control"]
-margin_left = -22.0
-margin_top = 22.0
-margin_right = 25.0
-margin_bottom = 42.0
+margin_left = -36.0
+margin_top = 24.0
+margin_right = 38.0
+margin_bottom = 50.0
 rect_scale = Vector2( 0.934459, 0.691302 )
 custom_fonts/font = ExtResource( 3 )
 text = "%s / %s"
@@ -49,6 +51,7 @@ __meta__ = {
 
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2( 1, 2.96 )
+collision_layer = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2( 1.41902, 0.289058 )

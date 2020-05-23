@@ -13,4 +13,12 @@ func _ready() -> void:
 
 func is_attacked(effect : String):
 	print(effect)
-	hp = hp - 1
+	var effect_arr = effect.split(",")
+	
+	match effect_arr[0]:
+		"A" :
+			hp = hp - int(effect_arr[1])
+		"C" :
+			hp = hp + int(effect_arr[1])
+	
+	emit_signal("health_change", hp, max_hp)
