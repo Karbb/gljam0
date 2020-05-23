@@ -4,18 +4,21 @@ extends StaticBody2D
 
 signal clicked
 signal right_clicked
+signal dice_applied
 
 onready var front_sprite : Sprite = $SpriteFront
 onready var back_sprite : Sprite = $SpriteBack
 onready var anim_player : AnimationPlayer = $AnimationPlayer
 onready var area2D : Area2D = $Area2D
 onready var dice_slot_sprite : Node2D = $DiceSlot/Sprite
+onready var effect : Node = $Effect
 
 var is_upwards : = true
 var held : = false
 
 export var suit : String = "H"
 export var value : int = 1
+export var code : String = "H1"
 
 var collider
 
@@ -24,6 +27,7 @@ var dice = null
 func init(code : String) -> void:
 	self.suit = code[0]
 	self.value = int(code[1])
+	self.code = code
 	
 
 func _ready() -> void:
@@ -80,7 +84,9 @@ func drop():
 			collider.add_card(self)
 			queue_free()
 			
-		#if collider is Enemy:
+		if collider and collider.is_in_group("enemy"):
+			collider.is_attacked(effect.get_calculated_effect(suit, value))
+			queue_free()
 			
 		
 		
@@ -92,6 +98,7 @@ func check_side():
 		front_sprite.visible = false
 		back_sprite.visible = true
 		
+		
 func check_dice_slot():
 	if !dice:
 		dice_slot_sprite.show()
@@ -99,9 +106,8 @@ func check_dice_slot():
 		dice_slot_sprite.hide()
 		
 
-func add_dice(dice):
-	dice = dice
-	dice_slot_sprite = dice.sprite 
+func add_dice(dice : int):
+	emit_signal("dice_applied", dice)
 
 
 func _on_Area2D_area_entered(area: Area2D) -> void:

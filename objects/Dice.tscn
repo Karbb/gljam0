@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/Dice.gd" type="Script" id=1]
 [ext_resource path="res://assets/X9tYQOD_3x.png" type="Texture" id=2]
@@ -9,12 +9,43 @@ extents = Vector2( 20, 20 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 20, 20 )
 
+[sub_resource type="Animation" id=3]
+resource_name = "1"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Rect2( 2016, 672, 48, 48 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "2"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Rect2( 2016, 672, 48, 48 ) ]
+}
+
 [node name="Dice" type="StaticBody2D" groups=[
 "dice",
 "pickable",
 ]]
 input_pickable = true
 script = ExtResource( 1 )
+value = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -22,11 +53,15 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 2016, 672, 48, 48 )
+region_rect = Rect2( 2064, 672, 48, 48 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/1 = SubResource( 3 )
+anims/2 = SubResource( 4 )
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
