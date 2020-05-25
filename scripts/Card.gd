@@ -5,6 +5,8 @@ extends StaticBody2D
 signal clicked
 signal right_clicked
 signal dice_applied
+signal hovered
+signal used
 
 onready var front_sprite : Sprite = $SpriteFront
 onready var back_sprite : Sprite = $SpriteBack
@@ -23,6 +25,8 @@ export var code : String = "H1"
 var collider
 
 var dice = null
+
+var original_position : = Vector2()
 
 func init(code : String) -> void:
 	self.suit = code[0]
@@ -48,6 +52,8 @@ func _ready() -> void:
 	
 	var rect_pos : = Vector2(rect_pos_x, rect_pos_y)
 	front_sprite.set_region_rect(Rect2(rect_pos, front_sprite.region_rect.size))
+	
+	original_position = global_transform.origin
 		
 		
 func _process(delta: float) -> void:
@@ -80,14 +86,12 @@ func drop():
 	if held:
 		held = false
 		
-		if collider and collider.is_in_group("deck"):
-			collider.add_card(self)
-			queue_free()
-			
 		if collider and collider.is_in_group("enemy"):
 			collider.is_attacked(effect.get_calculated_effect(suit, value))
+			emit_signal("used", code)
 			queue_free()
-			
+		else:
+			global_transform.origin = original_position
 		
 		
 func check_side():
@@ -116,3 +120,7 @@ func _on_Area2D_area_entered(area: Area2D) -> void:
 
 func _on_Area2D_area_exited(area: Area2D) -> void:
 	collider = null
+
+
+func _on_Card_mouse_entered() -> void:
+	emit_signal("hovered", effect.get_description(suit, value))

@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://objects/Card.tscn" type="PackedScene" id=1]
+[ext_resource path="res://dynamic_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://objects/Deck.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/GameArea.gd" type="Script" id=3]
-[ext_resource path="res://objects/Dice.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://objects/Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/Description.gd" type="Script" id=6]
+[ext_resource path="res://objects/GridManager.gd" type="Script" id=8]
 
 [node name="GameArea" type="Node2D"]
 script = ExtResource( 3 )
@@ -12,23 +14,97 @@ script = ExtResource( 3 )
 [node name="Deck" parent="." instance=ExtResource( 2 )]
 position = Vector2( 44, 40 )
 collision_layer = 524288
+cards = [ "S1", "F1", "H1", "D1", "S2" ]
 
-[node name="Card" parent="." instance=ExtResource( 1 )]
-position = Vector2( 280, 108 )
-suit = "S"
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 52, 336 )
 
-[node name="Card2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 344, 108 )
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+zoom = Vector2( 0.5, 0.5 )
 
-[node name="Dice" parent="." instance=ExtResource( 4 )]
-position = Vector2( 104, 296 )
+[node name="Dice" type="Node2D" parent="."]
+position = Vector2( 128, 352 )
+script = ExtResource( 8 )
 
-[node name="Dice2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 252, 296 )
-value = 5
+[node name="1" type="Node2D" parent="Dice"]
+position = Vector2( 0, -32 )
 
-[node name="Dice3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 180, 296 )
-value = 3
+[node name="2" type="Node2D" parent="Dice"]
+position = Vector2( 64, -32 )
 
-[node name="Enemy" parent="." instance=ExtResource( 5 )]
+[node name="3" type="Node2D" parent="Dice"]
+position = Vector2( 128, -32 )
+
+[node name="4" type="Node2D" parent="Dice"]
+position = Vector2( 0, 33 )
+
+[node name="5" type="Node2D" parent="Dice"]
+position = Vector2( 64, 32 )
+
+[node name="6" type="Node2D" parent="Dice"]
+position = Vector2( 128, 32 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 480, 68 )
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 552, 68 )
+max_hp = 15
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 620, 68 )
+max_hp = 30
+
+[node name="Description" type="Label" parent="."]
+margin_left = 428.0
+margin_top = 260.0
+margin_right = 748.0
+margin_bottom = 404.0
+custom_fonts/font = ExtResource( 1 )
+text = "LOREM IPSUM DICIUT PIRI PIRIASASA"
+align = 1
+valign = 1
+autowrap = true
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cards" type="Node2D" parent="."]
+position = Vector2( 64, 124 )
+script = ExtResource( 8 )
+
+[node name="1" type="Node2D" parent="Cards"]
+position = Vector2( 0, 4 )
+
+[node name="2" type="Node2D" parent="Cards"]
+position = Vector2( 64, 4 )
+
+[node name="3" type="Node2D" parent="Cards"]
+position = Vector2( 128, 4 )
+
+[node name="4" type="Node2D" parent="Cards"]
+position = Vector2( 192, 4 )
+
+[node name="5" type="Node2D" parent="Cards"]
+position = Vector2( 256, 4 )
+
+[node name="6" type="Node2D" parent="Cards"]
+position = Vector2( 0, 100 )
+
+[node name="7" type="Node2D" parent="Cards"]
+position = Vector2( 64, 100 )
+
+[node name="8" type="Node2D" parent="Cards"]
+position = Vector2( 128, 100 )
+
+[node name="9" type="Node2D" parent="Cards"]
+position = Vector2( 192, 100 )
+
+[node name="10" type="Node2D" parent="Cards"]
+position = Vector2( 256, 100 )
+[connection signal="change_description" from="." to="Description" method="_on_GameArea_change_description"]

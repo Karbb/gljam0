@@ -2,8 +2,9 @@
 
 [ext_resource path="res://scripts/CardNumberLabel.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Deck.gd" type="Script" id=2]
-[ext_resource path="res://assets/X9tYQOD_3x.png" type="Texture" id=3]
+[ext_resource path="res://assets/asset.png" type="Texture" id=3]
 [ext_resource path="res://assets/UniformRegular.otf" type="DynamicFontData" id=4]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 18, 22 )
